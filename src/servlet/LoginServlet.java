@@ -9,7 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class LoginServlet  extends HttpServlet {  
+import util.Constants;
+
+public class LoginServlet  extends HttpServlet implements Constants{  
     //重写doGet方法  
     public void doGet(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException {  
     	response.setContentType("text/html;charset=utf-8");
@@ -19,16 +21,12 @@ public class LoginServlet  extends HttpServlet {
 
         String username = request.getParameter("username");     
         String password = request.getParameter("password"); 
-        System.out.println("username:"+username);
-        System.out.println("password:"+password);
         
-        boolean userNisRight = username.equals("赵艳梅");
-        boolean pass = password.equals("霍少峰");
-        System.out.println("userNisRight="+userNisRight+", pass="+pass);
-        if(username.equals("赵艳梅") && password.equals("霍少峰")) {
-        	out.println("login successful!");
+        DBHelper dbHelper = DBHelper.getDBHelper();      
+        if(dbHelper.checkExist(username)) {
+        	out.print(SUCCESS);
         } else {
-        	out.println("login failed.username="+username+", password="+password);
+        	out.print(PARAMS_ERR);
         }
         out.flush();
         out.close();
@@ -55,7 +53,11 @@ public class LoginServlet  extends HttpServlet {
 //        output.flush();
 //        output.close();
         }                     
-    //重写doPost方法  
+    private DBHelper getDBHelper() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	//重写doPost方法  
     public void doPost(HttpServletRequest request, HttpServletResponse response)  throws ServletException, IOException {  
 //        doGet(request, response);     
         response.setContentType("text/html;charset=utf-8");
