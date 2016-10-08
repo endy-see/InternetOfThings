@@ -1,6 +1,5 @@
 WebRoot/WEB-INF/classes/
 .settings/
-.classpath
 *.mymetadata
 *.MF
-*.project
+
